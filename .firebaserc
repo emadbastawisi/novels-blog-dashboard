@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "novel-blog-1"
+  },
+  "targets": {
+    "novel-blog-1": {
+      "hosting": {
+        "novels-blog-dashboard": [
+          "novels-blog-dashboard"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

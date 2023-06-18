@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "target": "novels-blog-dashboard",
+    "public": "novels-blog-dashboard",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

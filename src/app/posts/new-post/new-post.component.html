@@ -1,0 +1,113 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h3 class="text-theme-primary">{{formStatus}} Post</h3>
+                <p class="mb-5">You Can {{formStatus}} Posts Here</p>
+        </div>
+    </div>
+    <div *ngIf="postForm">
+        <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="card shadow-effect ">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label class="lable"> Title </label>
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    (keyup)="onTitleChanged($event)"
+                                    formControlName="title"
+                                    [ngClass]="{'is-invalid': fc['title'].invalid && fc['title'].touched}">
+                                <div *ngIf="fc['title'].errors?.['required']">
+                                    <div class="alert alert-danger" *ngIf="fc['title'].touched && fc['title'].invalid">Title is requird.</div>
+                                </div>
+                                <div *ngIf="fc['title'].errors?.['minlength']">
+                                    <div class="alert alert-danger" *ngIf="fc['title'].touched && fc['title'].invalid"> This post title must be atleast 10 characters long </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="lable"> Permalink </label>
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    formControlName="permalink" 
+                                    >
+                            </div>
+                            <div class="form-group">
+                                <label class="lable"> Excerpt </label>
+                                <textarea 
+                                cols="30" 
+                                rows="10" 
+                                class="form-control" 
+                                formControlName="excerpt"
+                                [ngClass]="{'is-invalid': fc['excerpt'].invalid && fc['excerpt'].touched}"
+                                ></textarea>
+                                                                
+                                <div *ngIf="fc['excerpt'].errors?.['required']">
+                                    <div class="alert alert-danger" *ngIf="fc['excerpt'].touched && fc['excerpt'].invalid"> Excerpt is requird</div>
+                                </div>
+                                <div *ngIf="fc['excerpt'].errors?.['minlength']">
+                                    <div class="alert alert-danger" *ngIf="fc['excerpt'].touched && fc['excerpt'].invalid"> This excerpt must be atleast 50 characters long </div>
+                                </div>
+                            </div>
+    
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="card shadow-effect">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label class="lable" for=""> Please Select a post category</label>
+                                <select 
+                                class="form-control" 
+                                formControlName="category"
+                                [ngClass]="{'is-invalid': fc['category'].invalid && fc['category'].touched}">
+                                    <option value=""> Select a category </option>
+                                    <option *ngFor="let category of categories" value="{{category.id}}-{{category.data.category}}" >{{category.data.category}}</option>
+                                </select>
+                                <div *ngIf="fc['category'].errors?.['required']">
+                                    <div class="alert alert-danger" *ngIf="fc['category'].touched && fc['category'].invalid"> Category selection is requird</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="lable"> Post Imgae </label>
+                                <img [src]="imgSrc" class="form-control img-fluid img-preview">
+                                <input type="file" class="form-control" accept="image/*" (change)="showPreview($event)"
+                                    formControlName="postImg" [ngClass]="{'is-invalid': fc['postImg'].invalid && fc['postImg'].touched}">
+                                    <div *ngIf="fc['postImg'].errors?.['required']">
+                                        <div class="alert alert-danger" *ngIf="fc['postImg'].touched && fc['postImg'].invalid"> Post image is requird</div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3 mb-5">
+                <div class="col-md-12">
+                    <div class="card shadow-effect">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="" class="lable"> Post Content </label>
+                                <angular-editor 
+                                placeholder=" Add your content here "
+                                formControlName="content"
+                                [ngClass]="{'is-invalid': fc['postImg'].invalid && fc['postImg'].touched}">
+                                </angular-editor>
+                                <div *ngIf="fc['content'].errors?.['required']">
+                                    <div class="alert alert-danger" *ngIf="fc['content'].touched && fc['content'].invalid"> Post content is requird</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 text-center mb-5 mt-3">
+                    <button class="btn btn-info bg-theme" [disabled]="postForm.invalid"> {{formStatus}} Post </button>
+                    <button class="btn btn-warning  ms-3" routerLink="/posts"> Back to Post </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
